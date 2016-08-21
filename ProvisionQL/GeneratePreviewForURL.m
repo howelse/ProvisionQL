@@ -274,9 +274,14 @@ OSStatus GeneratePreviewForURL(void *thisInterface, QLPreviewRequestRef preview,
             if(!bundleName) {
                 bundleName = [appPropertyList objectForKey:@"CFBundleName"];
             }
+            NSString *shortVersion = [appPropertyList objectForKey:@"CFBundleShortVersionString"];
+            if (!shortVersion) {
+                shortVersion = [appPropertyList objectForKey:@"CFBundleVersion"];
+            }
+            
             [synthesizedInfo setObject:bundleName forKey:@"CFBundleName"];
             [synthesizedInfo setObject:[appPropertyList objectForKey:@"CFBundleIdentifier"] forKey:@"CFBundleIdentifier"];
-            [synthesizedInfo setObject:[appPropertyList objectForKey:@"CFBundleShortVersionString"] forKey:@"CFBundleShortVersionString"];
+            [synthesizedInfo setObject:shortVersion forKey:@"CFBundleShortVersionString"];
             [synthesizedInfo setObject:[appPropertyList objectForKey:@"CFBundleVersion"] forKey:@"CFBundleVersion"];
             [synthesizedInfo setObject:[appPropertyList objectForKey:@"MinimumOSVersion"] forKey:@"MinimumOSVersion"];
             
